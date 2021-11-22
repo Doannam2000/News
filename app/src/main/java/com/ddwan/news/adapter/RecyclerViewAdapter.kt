@@ -18,7 +18,6 @@ class RecyclerViewAdapter(var list: ArrayList<Article>) :
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
     lateinit var context: Context
-
     lateinit var itemClick: (position: Int) -> Unit
     fun setCallback(click: (position: Int) -> Unit) {
         itemClick = click
@@ -30,7 +29,9 @@ class RecyclerViewAdapter(var list: ArrayList<Article>) :
         viewType: Int,
     ): RecyclerViewAdapter.ViewHolder {
         context = parent.context
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_news, parent, false)
+        val view = LayoutInflater
+            .from(parent.context)
+            .inflate(R.layout.item_news, parent, false)
         return ViewHolder(view)
     }
 

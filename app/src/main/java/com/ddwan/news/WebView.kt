@@ -13,8 +13,9 @@ class WebView : AppCompatActivity() {
         setContentView(R.layout.activity_web_view)
         supportActionBar?.hide()
         val url = intent.extras!!.getString("url") as String
-        webView.webViewClient = WebViewClient()
         webView.settings.javaScriptEnabled = true
+        webView.settings.domStorageEnabled = true
+        webView.webViewClient = WebViewClient()
         webView.loadUrl(url)
     }
 }
