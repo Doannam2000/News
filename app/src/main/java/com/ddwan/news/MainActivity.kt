@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
 
+        // setup ViewModel
         setUpModel()
 
         // setup searchView
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
                 model.getNewsSearch(query!!)
                 return false
             }
+
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText == "" || newText == null)
                     model.getListNewHeadlines()
@@ -44,14 +46,14 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun setUpModel(){
+    private fun setUpModel() {
         model.listNewsHeadlines.observe(this, {
             setUpRecyclerView(it as ArrayList<Article>)
         })
         model.getListNewHeadlines()
     }
 
-    private fun setUpRecyclerView(it:ArrayList<Article>){
+    private fun setUpRecyclerView(it: ArrayList<Article>) {
         listNewsHeadlines = it
         adapter = RecyclerViewAdapter(listNewsHeadlines)
         adapter?.setCallback { it ->

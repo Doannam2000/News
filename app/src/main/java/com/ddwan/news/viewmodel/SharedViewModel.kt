@@ -5,14 +5,15 @@ import androidx.lifecycle.ViewModel
 import com.ddwan.news.model.Article
 import com.ddwan.news.repository.NewsRepository
 
-class SharedViewModel:ViewModel() {
+class SharedViewModel : ViewModel() {
     var listNewsHeadlines = MutableLiveData<List<Article>>()
     private val repository = NewsRepository()
 
-    fun getListNewHeadlines(){
+    fun getListNewHeadlines() {
         repository.getNewsHeadline(listNewsHeadlines)
     }
-    fun getNewsSearch(q:String){
-        repository.getNewsSearch(listNewsHeadlines,q)
+
+    fun getNewsSearch(q: String) {
+        repository.getNewsSearch(listNewsHeadlines, q)
     }
 }

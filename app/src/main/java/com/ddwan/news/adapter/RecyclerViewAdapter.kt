@@ -23,7 +23,6 @@ class RecyclerViewAdapter(var list: ArrayList<Article>) :
         itemClick = click
     }
 
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,

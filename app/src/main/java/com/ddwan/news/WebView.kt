@@ -15,6 +15,7 @@ class WebView : AppCompatActivity() {
         val url = intent.extras!!.getString("url") as String
         webView.settings.javaScriptEnabled = true
         webView.settings.domStorageEnabled = true
+        webView.settings.databaseEnabled = true
         webView.webViewClient = WebViewClient()
         webView.loadUrl(url)
     }

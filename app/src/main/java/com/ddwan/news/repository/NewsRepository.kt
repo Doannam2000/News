@@ -21,25 +21,27 @@ class NewsRepository {
             .create(CallAPI::class.java)
     }
 
-    fun getNewsHeadline(liveData: MutableLiveData<List<Article>>){
-        val retrofit = callNews.getNewsHeadline("us",API_KEY)
-        retrofit.enqueue(object : Callback<NewsHeadlines>{
+    fun getNewsHeadline(liveData: MutableLiveData<List<Article>>) {
+        val retrofit = callNews.getNewsHeadline("us", API_KEY)
+        retrofit.enqueue(object : Callback<NewsHeadlines> {
             override fun onResponse(call: Call<NewsHeadlines>, response: Response<NewsHeadlines>) {
                 val responseBody = response.body()!!
                 liveData.value = responseBody.articles
             }
+
             override fun onFailure(call: Call<NewsHeadlines>, t: Throwable) {
             }
         })
     }
 
-    fun getNewsSearch(liveData: MutableLiveData<List<Article>>,q : String){
-        val retrofit = callNews.searchNews(q,"publishedAt",API_KEY)
-        retrofit.enqueue(object : Callback<NewsHeadlines>{
+    fun getNewsSearch(liveData: MutableLiveData<List<Article>>, q: String) {
+        val retrofit = callNews.searchNews(q, "publishedAt", API_KEY)
+        retrofit.enqueue(object : Callback<NewsHeadlines> {
             override fun onResponse(call: Call<NewsHeadlines>, response: Response<NewsHeadlines>) {
                 val responseBody = response.body()!!
                 liveData.value = responseBody.articles
             }
+
             override fun onFailure(call: Call<NewsHeadlines>, t: Throwable) {
             }
         })
