@@ -43,15 +43,18 @@ class RecyclerViewAdapter(var list: ArrayList<Article>) :
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val image:ImageView = itemView.findViewById(R.id.imageView)
-        private val title:TextView = itemView.findViewById(R.id.title)
-        private val sourceName:TextView = itemView.findViewById(R.id.source_name)
-        private val date:TextView = itemView.findViewById(R.id.date)
-        private val description:TextView = itemView.findViewById(R.id.description)
-        private val layout:ConstraintLayout = itemView.findViewById(R.id.container)
-        fun setData(){
+        private val image: ImageView = itemView.findViewById(R.id.imageView)
+        private val title: TextView = itemView.findViewById(R.id.title)
+        private val sourceName: TextView = itemView.findViewById(R.id.source_name)
+        private val date: TextView = itemView.findViewById(R.id.date)
+        private val description: TextView = itemView.findViewById(R.id.description)
+        private val layout: ConstraintLayout = itemView.findViewById(R.id.container)
+        fun setData() {
             val article = list[adapterPosition]
-            Glide.with(context).load(article.urlToImage).into(image)
+            Glide.with(context)
+                .load(article.urlToImage)
+                .placeholder(R.drawable.news_image)
+                .into(image)
             title.text = article.title
             sourceName.text = article.source.name
             date.text = outputFormatter.format(inputFormatter.parse(article.publishedAt))

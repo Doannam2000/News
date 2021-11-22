@@ -26,31 +26,40 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
-        model.getListNewHeadlines()
-        model.listNewsHeadlines.observe(this, {
-            listNewsHeadlines = it as ArrayList<Article>
-            adapter = RecyclerViewAdapter(listNewsHeadlines)
-            adapter?.setCallback { it ->
-                val intent = Intent(this, WebView::class.java)
-                intent.putExtra("url", listNewsHeadlines[it].url)
-                startActivity(intent)
-            }
-            recyclerView.layoutManager = LinearLayoutManager(this)
-            recyclerView.adapter = adapter
-        })
 
+        setUpModel()
+
+        // setup searchView
         searchView.maxWidth = Int.MAX_VALUE
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 model.getNewsSearch(query!!)
                 return false
             }
-
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText == "" || newText == null)
                     model.getListNewHeadlines()
                 return false
             }
         })
+    }
+
+    private fun setUpModel(){
+        model.listNewsHeadlines.observe(this, {
+            setUpRecyclerView(it as ArrayList<Article>)
+        })
+        model.getListNewHeadlines()
+    }
+
+    private fun setUpRecyclerView(it:ArrayList<Article>){
+        listNewsHeadlines = it
+        adapter = RecyclerViewAdapter(listNewsHeadlines)
+        adapter?.setCallback { it ->
+            val intent = Intent(this, WebView::class.java)
+            intent.putExtra("url", listNewsHeadlines[it].url)
+            startActivity(intent)
+        }
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
     }
 }
