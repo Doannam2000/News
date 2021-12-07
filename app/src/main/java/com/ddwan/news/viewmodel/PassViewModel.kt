@@ -16,15 +16,14 @@ class PassViewModel(application: Application) : AndroidViewModel(application) {
     var password = ""
     var pass = ""
     var isFirst = true
+    var isStartActivity = false
     private val sharedPreferences: SharedPreferences =
         application.getSharedPreferences("SHARE_PREFERENCES", Context.MODE_PRIVATE)
 
     init {
         password = sharedPreferences.getString("key", "")!!
         isFirst = sharedPreferences.getBoolean("isFirst", true)
-        if (isFirst)
-            check.value = 4
-
+        if (isFirst) check.value = 4
     }
 
     fun checkPass(i: Int) {
@@ -64,7 +63,7 @@ class PassViewModel(application: Application) : AndroidViewModel(application) {
                     }
                 } else {
                     if (pass == password) {
-                        check.value = 1
+                        check.value = if (isStartActivity) 5 else 1
                     } else {
                         check.value = 2
                         GlobalScope.launch {

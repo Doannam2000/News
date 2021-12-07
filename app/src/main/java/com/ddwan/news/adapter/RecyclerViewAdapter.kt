@@ -54,6 +54,7 @@ class RecyclerViewAdapter(var list: ArrayList<Article>) :
             Glide.with(context)
                 .load(article.urlToImage)
                 .placeholder(R.drawable.news_image)
+                .error(R.drawable.error)
                 .into(image)
             title.text = article.title
             sourceName.text = article.source.name

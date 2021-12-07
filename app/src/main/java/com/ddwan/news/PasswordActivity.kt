@@ -18,6 +18,7 @@ class PasswordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_password)
         supportActionBar?.hide()
+        viewModel.isStartActivity = intent.getBooleanExtra("isStartActivity", false)
         observe()
         btn0.setOnClickListener { viewModel.checkPass(0) }
         btn1.setOnClickListener { viewModel.checkPass(1) }
@@ -42,10 +43,16 @@ class PasswordActivity : AppCompatActivity() {
                 2 -> textDisplay.text = "Mật khẩu không đúng"
                 3 -> textDisplay.text = "Thay đổi thành công"
                 4 -> textDisplay.text = "Nhập mật khẩu mới"
+                5 -> finish()
             }
         })
         viewModel.textView.observe(this, {
             textPass.text = it
         })
     }
+
+    override fun onBackPressed() {
+        this.finishAffinity()
+    }
+
 }

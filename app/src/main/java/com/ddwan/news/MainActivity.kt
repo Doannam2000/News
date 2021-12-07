@@ -3,8 +3,6 @@ package com.ddwan.news
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,11 +11,10 @@ import com.ddwan.news.model.Article
 import com.ddwan.news.viewmodel.SharedViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
+
 class MainActivity : AppCompatActivity() {
 
-    var listNewsHeadlines = ArrayList<Article>()
     private var adapter: RecyclerViewAdapter? = null
-
     private val model by lazy {
         ViewModelProvider(this).get(SharedViewModel::class.java)
     }
@@ -53,15 +50,30 @@ class MainActivity : AppCompatActivity() {
         model.getListNewHeadlines()
     }
 
-    private fun setUpRecyclerView(it: ArrayList<Article>) {
-        listNewsHeadlines = it
-        adapter = RecyclerViewAdapter(listNewsHeadlines)
-        adapter?.setCallback { it ->
+    private fun setUpRecyclerView(list: ArrayList<Article>) {
+        adapter = RecyclerViewAdapter(list)
+        adapter?.setCallback {
+            model.check = 1
             val intent = Intent(this, WebView::class.java)
-            intent.putExtra("url", listNewsHeadlines[it].url)
+            intent.putExtra("url", list[it].url)
             startActivity(intent)
         }
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
     }
+
+    override fun onResume() {
+        if (model.checkStartActivity()) {
+            val intent = Intent(this, PasswordActivity::class.java)
+            intent.putExtra("isStartActivity", true)
+            startActivity(intent)
+        }
+        super.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        model.changeData()
+    }
+
 }
