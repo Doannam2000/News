@@ -46,8 +46,14 @@ class PasswordActivity : AppCompatActivity() {
                 5 -> finish()
             }
         })
-        viewModel.textView.observe(this, {
-            textPass.text = it
+        viewModel.imageDrawable.observe(this, {
+            when (it) {
+                0 -> imagePass.setImageResource(R.drawable.none)
+                1 -> imagePass.setImageResource(R.drawable.pass_one)
+                2 -> imagePass.setImageResource(R.drawable.pass_two)
+                3 -> imagePass.setImageResource(R.drawable.pass_three)
+                4 -> imagePass.setImageResource(R.drawable.pass_four)
+            }
         })
     }
 
