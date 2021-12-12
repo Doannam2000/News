@@ -1,4 +1,4 @@
-package com.ddwan.news
+package com.ddwan.news.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,7 +6,9 @@ import android.os.Bundle
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ddwan.news.R
 import com.ddwan.news.adapter.RecyclerViewAdapter
+import com.ddwan.news.config.Constants
 import com.ddwan.news.model.Article
 import com.ddwan.news.viewmodel.SharedViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -36,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText == "" || newText == null)
+                if (newText.isNullOrEmpty())
                     model.getListNewHeadlines()
                 return false
             }
@@ -55,25 +57,10 @@ class MainActivity : AppCompatActivity() {
         adapter?.setCallback {
             model.check = 1
             val intent = Intent(this, WebView::class.java)
-            intent.putExtra("url", list[it].url)
+            intent.putExtra(Constants.URL, list[it].url)
             startActivity(intent)
         }
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
     }
-
-    override fun onResume() {
-        if (model.checkStartActivity()) {
-            val intent = Intent(this, PasswordActivity::class.java)
-            intent.putExtra("isStartActivity", true)
-            startActivity(intent)
-        }
-        super.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        model.changeData()
-    }
-
 }

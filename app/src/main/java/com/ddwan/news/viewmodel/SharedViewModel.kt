@@ -19,21 +19,4 @@ class SharedViewModel : ViewModel() {
         repository.getNewsSearch(listNewsHeadlines, q)
     }
 
-    fun checkStartActivity(): Boolean {
-        return when (check) {
-            2 -> true
-            1 -> {
-                check = 0
-                false
-            }
-            else -> false
-        }
-    }
-
-    fun changeData() {
-        if (check == 0)
-            check = 2
-        else if (check == 2)
-            check = 0
-    }
 }

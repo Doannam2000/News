@@ -5,6 +5,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.ddwan.news.config.Constants.Companion.IS_FIRST
+import com.ddwan.news.config.Constants.Companion.KEY
+import com.ddwan.news.config.Constants.Companion.KEY_SHARED_PREFERENCES
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -17,11 +20,11 @@ class PassViewModel(application: Application) : AndroidViewModel(application) {
     var pass = ""
     var isStartActivity = false
     private val sharedPreferences: SharedPreferences =
-        application.getSharedPreferences("SHARE_PREFERENCES", Context.MODE_PRIVATE)
+        application.getSharedPreferences(KEY_SHARED_PREFERENCES, Context.MODE_PRIVATE)
 
     init {
-        password = sharedPreferences.getString("key", "")!!
-        if (password == "") check.value = 4
+        password = sharedPreferences.getString(KEY, "")!!
+        if (password.isEmpty()) check.value = 4
     }
 
     fun checkPass(i: Int) {
@@ -35,10 +38,10 @@ class PassViewModel(application: Application) : AndroidViewModel(application) {
     private fun changeText() {
         imageDrawable.value = pass.length
         if (pass.length == 4) {
-            if (password == "") {
+            if (password.isEmpty()) {
                 password = pass
-                sharedPreferences.edit().putString("key", pass).apply()
-                sharedPreferences.edit().putBoolean("isFirst", false).apply()
+                sharedPreferences.edit().putString(KEY, pass).apply()
+                sharedPreferences.edit().putBoolean(IS_FIRST, false).apply()
                 check.value = 3
                 GlobalScope.launch {
                     delay(1000)

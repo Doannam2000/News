@@ -1,10 +1,12 @@
-package com.ddwan.news
+package com.ddwan.news.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
+import com.ddwan.news.R
+import com.ddwan.news.config.Constants.Companion.START_ACTIVITY
 import com.ddwan.news.viewmodel.PassViewModel
 import kotlinx.android.synthetic.main.activity_password.*
 
@@ -18,7 +20,7 @@ class PasswordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_password)
         supportActionBar?.hide()
-        viewModel.isStartActivity = intent.getBooleanExtra("isStartActivity", false)
+        viewModel.isStartActivity = intent.getBooleanExtra(START_ACTIVITY, false)
         observe()
         btn0.setOnClickListener { viewModel.checkPass(0) }
         btn1.setOnClickListener { viewModel.checkPass(1) }
