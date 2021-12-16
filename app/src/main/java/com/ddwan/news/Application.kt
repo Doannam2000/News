@@ -30,8 +30,8 @@ class Application : Application(), Application.ActivityLifecycleCallbacks,
             val intent = Intent(this, PasswordActivity::class.java)
             intent.putExtra(START_ACTIVITY, true)
             p0.startActivity(intent)
-            isBackground = false
         }
+        isBackground = false
     }
 
     override fun onActivityCreated(p0: Activity, p1: Bundle?) = Unit
