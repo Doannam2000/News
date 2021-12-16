@@ -55,7 +55,6 @@ class MainActivity : AppCompatActivity() {
     private fun setUpRecyclerView(list: ArrayList<Article>) {
         adapter = RecyclerViewAdapter(list)
         adapter?.setCallback {
-            model.check = 1
             val intent = Intent(this, WebView::class.java)
             intent.putExtra(Constants.URL, list[it].url)
             startActivity(intent)

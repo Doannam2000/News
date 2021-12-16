@@ -4,13 +4,14 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.ddwan.news.R
 import com.ddwan.news.config.Constants.Companion.START_ACTIVITY
 import com.ddwan.news.viewmodel.PassViewModel
 import kotlinx.android.synthetic.main.activity_password.*
 
-class PasswordActivity : AppCompatActivity() {
+class PasswordActivity : AppCompatActivity(), View.OnClickListener {
 
     private val viewModel by lazy {
         ViewModelProvider(this)[PassViewModel::class.java]
@@ -22,17 +23,17 @@ class PasswordActivity : AppCompatActivity() {
         supportActionBar?.hide()
         viewModel.isStartActivity = intent.getBooleanExtra(START_ACTIVITY, false)
         observe()
-        btn0.setOnClickListener { viewModel.checkPass(0) }
-        btn1.setOnClickListener { viewModel.checkPass(1) }
-        btn2.setOnClickListener { viewModel.checkPass(2) }
-        btn3.setOnClickListener { viewModel.checkPass(3) }
-        btn4.setOnClickListener { viewModel.checkPass(4) }
-        btn5.setOnClickListener { viewModel.checkPass(5) }
-        btn6.setOnClickListener { viewModel.checkPass(6) }
-        btn7.setOnClickListener { viewModel.checkPass(7) }
-        btn8.setOnClickListener { viewModel.checkPass(8) }
-        btn9.setOnClickListener { viewModel.checkPass(9) }
-        btnC.setOnClickListener { viewModel.checkPass(10) }
+        btn0.setOnClickListener(this)
+        btn1.setOnClickListener(this)
+        btn2.setOnClickListener(this)
+        btn3.setOnClickListener(this)
+        btn4.setOnClickListener(this)
+        btn5.setOnClickListener(this)
+        btn6.setOnClickListener(this)
+        btn7.setOnClickListener(this)
+        btn8.setOnClickListener(this)
+        btn9.setOnClickListener(this)
+        btnC.setOnClickListener(this)
     }
 
     @SuppressLint("SetTextI18n")
@@ -61,6 +62,22 @@ class PasswordActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         this.finishAffinity()
+    }
+
+    override fun onClick(p0: View?) {
+        when (p0) {
+            btn0 -> viewModel.checkPass(0)
+            btn1 -> viewModel.checkPass(1)
+            btn2 -> viewModel.checkPass(2)
+            btn3 -> viewModel.checkPass(3)
+            btn4 -> viewModel.checkPass(4)
+            btn5 -> viewModel.checkPass(5)
+            btn6 -> viewModel.checkPass(6)
+            btn7 -> viewModel.checkPass(7)
+            btn8 -> viewModel.checkPass(8)
+            btn9 -> viewModel.checkPass(9)
+            btnC -> viewModel.checkPass(10)
+        }
     }
 
 }

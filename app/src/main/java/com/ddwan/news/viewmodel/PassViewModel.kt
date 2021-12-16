@@ -14,8 +14,8 @@ import kotlinx.coroutines.launch
 
 class PassViewModel(application: Application) : AndroidViewModel(application) {
 
-    var check = MutableLiveData<Int>()
-    var imageDrawable = MutableLiveData<Int>()
+    val check = MutableLiveData<Int>()
+    val imageDrawable = MutableLiveData<Int>()
     var password = ""
     var pass = ""
     var isStartActivity = false

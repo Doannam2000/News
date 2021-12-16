@@ -7,9 +7,8 @@ import com.ddwan.news.repository.NewsRepository
 
 class SharedViewModel : ViewModel() {
 
-    var listNewsHeadlines = MutableLiveData<List<Article>>()
+    val listNewsHeadlines = MutableLiveData<List<Article>>()
     private val repository = NewsRepository()
-    var check = 0
 
     fun getListNewHeadlines() {
         repository.getNewsHeadline(listNewsHeadlines)
